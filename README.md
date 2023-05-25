@@ -8,10 +8,10 @@ ChitChat is a web application developed using the Go programming language. It is
 
 2. Clone the repository:
 
-    git clone https://github.com/ashkanamani/chitchat.git
+    `git clone https://github.com/ashkanamani/chitchat.git`
 
 3. Run the application:
 
-    go build
+    `go build`
 
-    ./chitchat
+    `./chitchat`
