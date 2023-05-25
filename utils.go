@@ -1,23 +1,52 @@
 package main
 
 import (
-	"fmt"
-	"html/template"
-	"net/http"
-	"log"
-	"github.com/ashkanamani/chitchat/data"
 	"errors"
+	"fmt"
+	"github.com/ashkanamani/chitchat/data"
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+	"encoding/json"
 	"strings"
+
 )
-type Config struct {
-	Address string `json:"Address"`
-	ReadTimeout int `json:"ReadTimeout"`
-	WriteTimeout int `json:"WriteTimeout"`
-	Static string `json:"Static"`
+
+type Configuration struct {
+	Address      string
+	ReadTimeout  int
+	WriteTimeout int
+	Static       string
 }
 
 const ConfigurationFile = "config.json"
+
 var logger *log.Logger
+var config Configuration
+
+func init() {
+	loadConfig()
+	file, err := os.OpenFile("chitchat.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalln("Failed to open log file", err)
+	}
+	logger = log.New(file, "INFO ", log.Ldate|log.Ltime|log.Lshortfile)
+}
+
+func loadConfig() {
+	file, err := os.Open(ConfigurationFile)
+	if err != nil {
+		log.Fatalln("Cannot open config file", err)
+	}
+	decoder := json.NewDecoder(file)
+	config = Configuration{}
+	err = decoder.Decode(&config)
+	if err != nil {
+		log.Fatalln("Cannot get configuration from file", err)
+	}
+}
+
 func parseTemplateFiles(filenames ...string) (t *template.Template) {
 	var files []string
 	t = template.New("layout")
@@ -70,4 +99,3 @@ func warning(args ...interface{}) {
 	logger.SetPrefix("WARNING ")
 	logger.Println(args...)
 }
-

@@ -20,6 +20,8 @@ type Post struct {
 	CreatedAt time.Time
 }
 
+
+
 // Create a new thread
 func (user *User) CreateThread(topic string) (conv Thread, err error) {
 	statement := "insert into threads (uuid, topic, user_id, created_at) values ($1, $2, $3, $4) returning id, uuid, topic, user_id, created_at"

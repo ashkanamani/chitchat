@@ -1,9 +1,9 @@
 package main
 
-import(
-	"net/http"
-	"github.com/ashkanamani/chitchat/data"
+import (
 	"fmt"
+	"github.com/ashkanamani/chitchat/data"
+	"net/http"
 )
 
 // GET /threads/new

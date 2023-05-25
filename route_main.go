@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/ashkanamani/chitchat/data"
 	"html/template"
 	"net/http"
-	"github.com/ashkanamani/chitchat/data"
 )
 
 // GET /err?msg=
@@ -24,10 +24,10 @@ func index(writer http.ResponseWriter, request *http.Request) {
 		"template/navbar.html",
 		"template/index.html",
 	}
+
 	templates := template.Must(template.ParseFiles(files...))
 
 	if threads, err := data.Threads(); err == nil {
 		templates.Execute(writer, threads)
-
 	}
 }

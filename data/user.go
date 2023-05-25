@@ -58,7 +58,7 @@ func (session *Session) Check() (valid bool, err error) {
 	return
 }
 
-
+// Delete session from database
 func (session *Session) DeleteByUUID() (err error) {
 	statement := "delete from sessions where uuid = $1"
 	stmt, err := Db.Prepare(statement)
@@ -71,6 +71,7 @@ func (session *Session) DeleteByUUID() (err error) {
 	return
 
 }
+
 // Get the user from the session
 func (session *Session) User() (user User, err error) {
 	user = User{}
@@ -130,3 +131,17 @@ func UserByEmail(email string) (user User, err error) {
 		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
 	return
 }
+
+// // Delete all users from database
+// func UserDeleteAll() (err error) {
+// 	statement := "delete from users"
+// 	_, err = Db.Exec(statement)
+// 	return
+// }
+
+// // Delete all sessions from database
+// func SessionDeleteAll() (err error) {
+// 	statement := "delete from sessions"
+// 	_, err = Db.Exec(statement)
+// 	return
+// }

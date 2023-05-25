@@ -1,30 +1,16 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
-	"os"
 	"time"
 )
 
 
-
-func LoadConfiguration(filename string) (Config, error) {
-	var config Config
-	configFile, err := os.Open(filename)
-	
-	if err != nil {
-		return config, err
-	}
-	jsonParser := json.NewDecoder(configFile)
-	err = jsonParser.Decode(&config)
-	configFile.Close()
-	return config, err
-}
 func main() {
-	config, _ := LoadConfiguration(ConfigurationFile)
+
 	mux := http.NewServeMux()
 
+	// handle static assets
 	files := http.FileServer(http.Dir(config.Static))
 	mux.Handle("/static/", http.StripPrefix("static", files))
 
