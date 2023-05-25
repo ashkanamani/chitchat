@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"crypto/rand"
 	"crypto/sha1"
+	_"github.com/lib/pq"
 )
 
 

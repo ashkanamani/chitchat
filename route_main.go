@@ -20,9 +20,9 @@ func err(writer http.ResponseWriter, request *http.Request) {
 
 func index(writer http.ResponseWriter, request *http.Request) {
 	files := []string{
-		"template/layout.html",
-		"template/navbar.html",
-		"template/index.html",
+		"templates/layout.html",
+		"templates/public.navbar.html",
+		"templates/index.html",
 	}
 
 	templates := template.Must(template.ParseFiles(files...))
