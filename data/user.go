@@ -71,6 +71,13 @@ func (session *Session) DeleteByUUID() (err error) {
 	return
 
 }
+// Get the user from the session
+func (session *Session) User() (user User, err error) {
+	user = User{}
+	err = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = $1", session.UserId).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	return
+}
 
 // Create a new user, save user info into the database
 func (user *User) Create() (err error) {

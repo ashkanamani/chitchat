@@ -39,7 +39,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	if err := user.Create(); err != nil {
 		danger(err, "Cannot create user")
 	}
-	http.Redirect(writer, request, "/login", 302)
+	http.Redirect(writer, request, "/login", http.StatusFound)
 
 }
 
@@ -49,6 +49,9 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 // Authenticate the user given the email and password
 func authenticate(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
+	if err != nil {
+		danger(err, "Cannot parse form")
+	}
 	user, err := data.UserByEmail(request.PostFormValue("email"))
 	if err != nil {
 		danger(err, "Cannot find user")
@@ -64,9 +67,9 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 			HttpOnly: true,
 		}
 		http.SetCookie(writer, &cookie)
-		http.Redirect(writer, request, "/", 302)
+		http.Redirect(writer, request, "/", http.StatusFound)
 	} else {
-		http.Redirect(writer, request, "/login", 302)
+		http.Redirect(writer, request, "/login", http.StatusFound)
 	}
 
 }
