@@ -4,14 +4,14 @@ ChitChat is a web application developed using the Go programming language. It is
 
 ## Installation
 
-1. Ensure you have Go installed on your system. You can download it from the official website: [https://golang.org/](https://golang.org/)
+1. Ensure you have Go installed on your system.
 
 2. Clone the repository:
 
-$ git clone https://github.com/ashkanamani/chitchat.git
+    git clone https://github.com/ashkanamani/chitchat.git
 
 3. Run the application:
 
-$ go build
+    go build
 
-$ ./chitchat
+    ./chitchat
